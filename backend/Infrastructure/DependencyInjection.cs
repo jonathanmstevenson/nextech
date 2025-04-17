@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,9 @@ namespace Infrastructure
                 
             // services.AddScoped<IProductService, ProductService>();
             // services.AddTransient<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IHackerNewsService, HackerNewsService>();
+            
             return services;
         }
     }
