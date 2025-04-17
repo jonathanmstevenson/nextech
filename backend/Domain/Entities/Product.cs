@@ -1,7 +1,7 @@
-namespace Domain.Entities
-{
-    public class Product : BaseEntity<int>
-    {
-        public string? Name { get; set; }
-    }
-}
+// namespace Domain.Entities
+// {
+//     public class Product : BaseEntity<int>
+//     {
+//         public string? Name { get; set; }
+//     }
+// }

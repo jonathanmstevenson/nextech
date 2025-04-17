@@ -8,7 +8,7 @@ namespace Application.DTOs.Mapping
     {
         public EntityMappingProfile()
         {
-            CreateMap<Product, ProductDto>().ReverseMap();
+            // CreateMap<Product, ProductDto>().ReverseMap();
         }
     }
 }

@@ -1,7 +1,7 @@
-namespace Application.DTOs
-{
-    public class ProductDto
-    {
+// namespace Application.DTOs
+// {
+//     public class ProductDto
+//     {
         
-    }
-}
+//     }
+// }

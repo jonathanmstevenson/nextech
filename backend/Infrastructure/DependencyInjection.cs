@@ -1,5 +1,4 @@
 using Application.Interfaces;
-using Application.Services;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +15,8 @@ namespace Infrastructure
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)
                 ));
                 
-            services.AddScoped<IProductService, ProductService>();
-            services.AddTransient<IProductRepository, ProductRepository>();
+            // services.AddScoped<IProductService, ProductService>();
+            // services.AddTransient<IProductRepository, ProductRepository>();
             return services;
         }
     }

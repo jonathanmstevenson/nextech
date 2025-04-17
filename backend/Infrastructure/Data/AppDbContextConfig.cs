@@ -17,18 +17,18 @@ namespace Infrastructure.Data
         public static void SeedData(ModelBuilder modelBuilder)
         {
             // Add any seed data here
-            modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1 },
-                new Product { Id = 2 },
-                new Product { Id = 3 },
-                new Product { Id = 4 },
-                new Product { Id = 5 },
-                new Product { Id = 6 },
-                new Product { Id = 7 },
-                new Product { Id = 8 },
-                new Product { Id = 9 },
-                new Product { Id = 10 }
-            );
+            // modelBuilder.Entity<Product>().HasData(
+            //     new Product { Id = 1 },
+            //     new Product { Id = 2 },
+            //     new Product { Id = 3 },
+            //     new Product { Id = 4 },
+            //     new Product { Id = 5 },
+            //     new Product { Id = 6 },
+            //     new Product { Id = 7 },
+            //     new Product { Id = 8 },
+            //     new Product { Id = 9 },
+            //     new Product { Id = 10 }
+            // );
 
         }
 

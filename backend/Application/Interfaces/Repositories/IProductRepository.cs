@@ -1,8 +1,8 @@
-using Domain.Entities;
+// using Domain.Entities;
 
-namespace Application.Interfaces
-{
-    public interface IProductRepository : IBaseRepository<Product>
-    {
-    }
-}
+// namespace Application.Interfaces
+// {
+//     public interface IProductRepository : IBaseRepository<Product>
+//     {
+//     }
+// }
