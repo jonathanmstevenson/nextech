@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoryBrowserComponent } from './components/story-browser/story-browser.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { PaginatorComponent } from './components/shared/paginator/paginator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StoryBrowserComponent
+    StoryBrowserComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
