@@ -42,7 +42,7 @@ namespace Infrastructure.Services
                 httpClient.GetFromJsonAsync<StoryDTO>($"https://hacker-news.firebaseio.com/v0/item/{id}.json?print=pretty")
             );
             var stories = await Task.WhenAll(tasks);
-            return stories.Where(x => x != null).Where(x => x.Url != null).ToList();
+            return stories.Where(x => x != null).Cast<StoryDTO>().Where(x => x.Url != null).ToList();
         }
 
     }
