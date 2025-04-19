@@ -18,7 +18,7 @@ namespace Infrastructure
                 
             // services.AddScoped<IProductService, ProductService>();
             // services.AddTransient<IProductRepository, ProductRepository>();
-
+            services.AddMemoryCache();
             services.AddScoped<IHackerNewsService, HackerNewsService>();
             
             return services;
