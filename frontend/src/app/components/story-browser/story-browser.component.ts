@@ -24,4 +24,9 @@ export class StoryBrowserComponent implements OnInit {
       .subscribe(x => this.records = x);
   }
 
+
+  toDate(epoch: number): string {
+    const date = new Date(epoch * 1000);
+    return date.toLocaleString("en-US");
+  }
 }
