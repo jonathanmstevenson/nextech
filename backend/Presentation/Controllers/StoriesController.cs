@@ -5,11 +5,11 @@ namespace Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class StoriesController : ControllerBase
     {
         private readonly IHackerNewsService _hackerNewsService;
         
-        public TestController(IHackerNewsService hackerNewsService)
+        public StoriesController(IHackerNewsService hackerNewsService)
         {
             _hackerNewsService = hackerNewsService;
         }
