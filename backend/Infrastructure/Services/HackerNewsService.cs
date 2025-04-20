@@ -2,16 +2,19 @@ using System.Net.Http.Json;
 using Application.DTOs;
 using Application.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services
 {
     public class HackerNewsService : IHackerNewsService
     {
         private readonly IMemoryCache _cache;
+        private readonly ILogger<IHackerNewsService> _logger;
 
-        public HackerNewsService(IMemoryCache cache)
+        public HackerNewsService(IMemoryCache cache, ILogger<IHackerNewsService> logger)
         {
             _cache = cache;
+            _logger = logger;
         }
 
 
@@ -23,8 +26,17 @@ namespace Infrastructure.Services
             var latest = await _cache.GetOrCreateAsync("latest_stories", async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
-                return await FetchStoriesFromApi();
+                try
+                {
+                    return await FetchStoriesFromApi();
+                }
+                catch (Exception exc)
+                {
+                    _logger?.LogError(exc, "Failed to fetch stories from API.");
+                    return Enumerable.Empty<StoryDTO>();
+                }
             });
+
             if (!string.IsNullOrWhiteSpace(searchTerm))
                 latest = latest?.Where(x => x.Title?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) == true).ToList();
 
