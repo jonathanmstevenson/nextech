@@ -12,6 +12,27 @@
         </div>
         <div
             class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 pt-10 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+
+            <ng-container *ngIf="isLoading">
+                <div *ngFor="let i of [1,2,3,4,5,6]" class="mx-auto w-full max-w-sm rounded-md p-4">
+                    <div class="flex animate-pulse space-x-4">
+                        <div class="size-10 rounded-full bg-gray-200"></div>
+                        <div class="flex-1 space-y-6 py-1">
+                            <div class="h-2 rounded bg-gray-200"></div>
+                            <div class="space-y-3">
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="col-span-2 h-2 rounded bg-gray-200"></div>
+                                    <div class="col-span-1 h-2 rounded bg-gray-200"></div>
+                                </div>
+                                <div class="h-2 rounded bg-gray-200"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            
+
+
             <article *ngFor="let r of dataSource?.records" class="flex max-w-xl flex-col items-start justify-between">
                 <div class="flex items-center gap-x-4 text-xs">
                     <time datetime="2020-03-16" class="text-gray-500">{{toDate(r.time)}}</time>
@@ -45,6 +66,7 @@
 
         </div>
 
-        <app-paginator [totalRecords]="dataSource?.total ?? 0" (pgSelectEvent)="onPageChange($event)" [itemsPerPage]="pgSize"/>
+        <app-paginator [totalCount]="dataSource?.total ?? 0" (pgSelectEvent)="onPageChange($event)"
+            [itemsPerPage]="pgSize" [activePage]="pgNumber"/>
     </div>
 </div>

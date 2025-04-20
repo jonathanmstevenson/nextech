@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoriesService } from '../../services/stories.service';
 import { IStory } from '../../models/interfaces/story.interface';
 import { IPaginated } from '../../models/interfaces/paginator.interface';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-story-browser',
@@ -14,6 +15,7 @@ export class StoryBrowserComponent implements OnInit {
   pgNumber: number = 1;
   dataSource?: IPaginated<IStory>;
   searchTerm?: string;
+  isLoading: boolean = false;
 
   constructor(private _storiesService: StoriesService) { }
   
@@ -22,8 +24,12 @@ export class StoryBrowserComponent implements OnInit {
   }
 
   getLatest(term?: string) {
+    this.isLoading = true;
+    if(term != this.searchTerm)
+      this.pgNumber = 1;
     this.searchTerm = term;
     this._storiesService.getLatest(this.pgSize, this.pgNumber, term)
+      .pipe(finalize(() => this.isLoading = false))
       .subscribe(x => this.dataSource = x);
   }
 

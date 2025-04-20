@@ -10,14 +10,14 @@ export class PaginatorComponent {
   _currentPage: number = 1;
   _totalPages: number = 0;
   _pageSize: number = 20;
-  _totalRecords: number = 0;
+  _totalCount: number = 0;
 
   pages: number[] = [];
 
   @Output() pgSelectEvent = new EventEmitter();
 
   get pageSize() { return this._pageSize; }
-  get totalPages() { return Math.ceil(this._totalRecords / this._pageSize); }
+  get totalPages() { return Math.ceil(this._totalCount / this._pageSize); }
   get currentPage() { return this._currentPage; }
 
   @Input("itemsPerPage")
@@ -26,15 +26,21 @@ export class PaginatorComponent {
     this.updatePages();
   }
 
-  @Input("dataSource")
-  set dataSource(items: any[]) {
-    this._totalRecords = items.length;
+  @Input("activePage")
+  set activePage(value: number) {
+    this._currentPage = value;
     this.updatePages();
   }
 
-  @Input("totalRecords")
-  set totalRecords(total: number) {
-    this._totalRecords = total;
+  // @Input("dataSource")
+  // set dataSource(items: any[]) {
+  //   this._totalCount = items.length;
+  //   this.updatePages();
+  // }
+
+  @Input("totalCount")
+  set totalCount(value: number) {
+    this._totalCount = value;
     this.updatePages();
   }
 
