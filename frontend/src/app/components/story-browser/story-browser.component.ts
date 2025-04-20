@@ -24,6 +24,12 @@ export class StoryBrowserComponent implements OnInit {
       .subscribe(x => this.records = x);
   }
 
+  search(elem: HTMLInputElement) {
+    if(elem.value.length)
+      this._storiesService.getLatest(this.pgSize, 1, elem.value).subscribe(x => this.records = x);
+    else this.getLatest();
+  }
+
 
   toDate(epoch: number): string {
     const date = new Date(epoch * 1000);

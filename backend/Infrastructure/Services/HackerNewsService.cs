@@ -15,26 +15,28 @@ namespace Infrastructure.Services
         }
 
 
-        public async Task<IEnumerable<StoryDTO>> GetLatestStories(int pageNumber, int pageSize)
+        public async Task<IEnumerable<StoryDTO>> GetLatestStories(int pageNumber, int pageSize, string? searchTerm = null)
         {
-            return await _cache.GetOrCreateAsync("latest_stories", async entry =>
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 20;
+
+            var latest = await _cache.GetOrCreateAsync("latest_stories", async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
                 return await FetchStoriesFromApi();
-            }) ?? new List<StoryDTO>();
+            });
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+                latest = latest?.Where(x => x.Title?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) == true).ToList();
+
+            return (latest ?? [])
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
         }
 
-        public Task<IEnumerable<StoryDTO>> SearchLatestStories(string term, int pageNumber, int pageSize)
-        {
-            throw new NotImplementedException();
-        }
 
 
 
-
-
-
-        private async Task<List<StoryDTO>> FetchStoriesFromApi()
+        private static async Task<List<StoryDTO>> FetchStoriesFromApi()
         {
             using var httpClient = new HttpClient();
             var ids = await httpClient.GetFromJsonAsync<List<int>>("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty");
