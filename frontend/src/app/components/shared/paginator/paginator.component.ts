@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-paginator',
@@ -9,7 +9,7 @@ export class PaginatorComponent {
 
   _currentPage: number = 1;
   _totalPages: number = 0;
-  _pageSize: number = 10;
+  _pageSize: number = 20;
   _totalRecords: number = 0;
 
   pages: number[] = [];
@@ -20,15 +20,22 @@ export class PaginatorComponent {
   get totalPages() { return Math.ceil(this._totalRecords / this._pageSize); }
   get currentPage() { return this._currentPage; }
 
-  @Input("dataSource")
-  set dataSource(items: any[]) {
-    this._totalRecords = items.length;
-    this._currentPage = 1; // reset
+  @Input("itemsPerPage")
+  set itemsPerPage(value: number) {
+    this._pageSize = value;
     this.updatePages();
   }
 
-  onSelect(value: number) {
-    this.pgSelectEvent.emit(value);
+  @Input("dataSource")
+  set dataSource(items: any[]) {
+    this._totalRecords = items.length;
+    this.updatePages();
+  }
+
+  @Input("totalRecords")
+  set totalRecords(total: number) {
+    this._totalRecords = total;
+    this.updatePages();
   }
 
 

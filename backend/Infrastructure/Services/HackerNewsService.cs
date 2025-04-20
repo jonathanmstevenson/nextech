@@ -18,7 +18,7 @@ namespace Infrastructure.Services
         }
 
 
-        public async Task<IEnumerable<StoryDTO>> GetLatestStories(int pageNumber, int pageSize, string? searchTerm = null)
+        public async Task<PaginationDTO<StoryDTO>> GetLatestStories(int pageNumber, int pageSize, string? searchTerm = null)
         {
             if (pageNumber < 1) pageNumber = 1;
             if (pageSize < 1) pageSize = 20;
@@ -40,9 +40,8 @@ namespace Infrastructure.Services
             if (!string.IsNullOrWhiteSpace(searchTerm))
                 latest = latest?.Where(x => x.Title?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) == true).ToList();
 
-            return (latest ?? [])
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
+            latest ??= [];
+            return new PaginationDTO<StoryDTO>(latest.Skip((pageNumber - 1) * pageSize).Take(pageSize), latest.Count());
         }
 
 

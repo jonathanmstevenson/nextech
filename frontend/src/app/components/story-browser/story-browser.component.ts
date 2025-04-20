@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoriesService } from '../../services/stories.service';
-import { IStory } from '../../models/interfaces/story.model';
+import { IStory } from '../../models/interfaces/story.interface';
+import { IPaginated } from '../../models/interfaces/paginator.interface';
 
 @Component({
   selector: 'app-story-browser',
@@ -9,9 +10,10 @@ import { IStory } from '../../models/interfaces/story.model';
 })
 export class StoryBrowserComponent implements OnInit {
   
-  pgSize: number = 20;
+  pgSize: number = 50;
   pgNumber: number = 1;
-  records: Array<IStory> = [];
+  dataSource?: IPaginated<IStory>;
+  searchTerm?: string;
 
   constructor(private _storiesService: StoriesService) { }
   
@@ -19,15 +21,15 @@ export class StoryBrowserComponent implements OnInit {
     this.getLatest();
   }
 
-  getLatest() {
-    this._storiesService.getLatest(this.pgSize, this.pgNumber)
-      .subscribe(x => this.records = x);
+  getLatest(term?: string) {
+    this.searchTerm = term;
+    this._storiesService.getLatest(this.pgSize, this.pgNumber, term)
+      .subscribe(x => this.dataSource = x);
   }
 
-  search(elem: HTMLInputElement) {
-    if(elem.value.length)
-      this._storiesService.getLatest(this.pgSize, 1, elem.value).subscribe(x => this.records = x);
-    else this.getLatest();
+  onPageChange(pg: number) {
+    this.pgNumber = pg;
+    this.getLatest(this.searchTerm);
   }
 
 

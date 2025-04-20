@@ -2,13 +2,13 @@ namespace Application.DTOs
 {
     public class PaginationDTO<T>
     {
-        public IEnumerable<T> Data { get; set; }
-        public int TotalCount { get; set; }
+        public IEnumerable<T> Records { get; set; }
+        public int Total { get; set; }
 
-        public PaginationDTO(IEnumerable<T> data, int totalCount)
+        public PaginationDTO(IEnumerable<T> records, int total)
         {
-            Data = data;
-            TotalCount = totalCount;
+            Records = records;
+            Total = total;
         }
     }
 }
