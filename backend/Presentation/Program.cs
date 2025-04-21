@@ -40,3 +40,6 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
+public partial class Program { } // to make it visible to the test project
